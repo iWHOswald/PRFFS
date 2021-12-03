@@ -289,7 +289,7 @@ class MainWindow(tk.Frame):
         print(df_teams)
 
 
-#prffs_library.scheduler(917761, espn, password,2021,7,2) # args = leagueID, ID, PW, YEAR, WEEK, time interval
+#prffs_library.scheduler(917761, espn, password,2021,10,1) # args = leagueID, ID, PW, YEAR, WEEK, time interval
 #while True:
 #    schedule.run_pending()
 #    time.sleep(1)
@@ -336,14 +336,69 @@ def plot_intergame_data(df,matchup_id):
                  labels=[name_arr[0], name_arr[1]],frameon=False)
 
 
-    #plt.show()
+    plt.show()
     plt.tight_layout(h_pad=2)
 
-    plt.savefig(str(matchup_id)+"_t-dep.png", dpi=300)
+    #plt.savefig(str(matchup_id)+"_t-dep.png", dpi=300)
 
 #for i in range(0,5):
 #    plot_intergame_data('917761_2021_6_TDEP.csv',i)
-#plot_intergame_data('917761_2021_6_TDEP.csv',10)
+#plot_intergame_data('917761_2021_8_TDEP.csv',10)
+
+def plot_tdependent_data(df,y):
+
+    # this function interpolates between two colors to generate a gradient for the bar graph
+
+    bar_colors = [0,0,0,0,0,0,0,0,0,0,0,0] #initialize an array to store the color values
+    #dark_green = Color("#003e17")  #your first color as hex code
+    #colors = list(dark_green.range_to(Color("#f4ec16"), 8)) #generate a list of colors for the bar graph
+    dark_green = Color("blue")
+    colors = list(dark_green.range_to(Color("red"), 12))
+    for i in range(len(colors)): # iterate and transpose the values in the list to an array
+        bar_colors[i] = str(colors[i])[:-3]
+    print(bar_colors) #sanity check to make sure your values look reasonable
+    #bar_colors = ['blue','green','purple','black','yellow',]
+
+
+    df = pd.read_csv(df,encoding='utf-8-sig')
+    name_arr = []
+    for i in df['Owner']:
+        name_arr.append(i.rstrip().lstrip())
+    name_arr = name_arr[0:11]
+
+    df = df[['Team ID', 'Owner','Week','Division','Wins','Losses','Ties','Cumulative points']]
+    df_arr = []
+    for i in df['Team ID']:
+        df_temp = df[df['Team ID'] == i]
+        if y == 'cum points':
+            y_val = 'Cumulative points'
+            df_temp = df_temp[['Week',y_val,'Owner']]
+            df_arr.append(df_temp)
+    print(df_arr)
+
+    ###############
+    # plot the data
+    for i in range(len(df_arr)):
+        g = sns.lineplot(x=df_arr[i]['Week'], y=df_arr[i][y_val],style=df_arr[i]['Owner'],markers=True,dashes=False,markersize=12,markeredgecolor='black')
+
+    sns.despine(bottom=True)
+
+    g.xaxis.set_major_locator(ticker.MultipleLocator(1000))
+    g.xaxis.set_major_formatter(ticker.ScalarFormatter())
+    g.set_xlabel("Week")
+
+    g.set_ylabel("Points")
+    g.legend(loc='lower right',
+             labels=name_arr,frameon=False)
+
+
+    plt.show()
+    plt.tight_layout(h_pad=2)
+
+    #plt.savefig(str(matchup_id)+"_t-dep.png", dpi=300)
+
+
+#plot_tdependent_data('917761_2021_team_stats.csv','cum points')
 
 
 draft_years = ['917761_2021draft_stats_py.csv','917761_2020_draft_stats.csv']
