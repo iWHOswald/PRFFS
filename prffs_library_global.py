@@ -21,7 +21,6 @@ import os
 import glob
 from ast import literal_eval
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
-import datetime
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -210,13 +209,29 @@ def positional_stat_puller(data):
     flex_home_array = []
     dst_home_array = []
     hc_home_array = []
+    all_positions = ['QB', 'TQB', 'RB', 'RB/WR', 'WR', 'WR/TE', 'TE', 'OP', 'DT', 'DE', 'LB', 'DL', 'CB', 'S', 'DB',
+                      'DP', 'D/ST', 'K', 'P', 'HC', 'BE', 'IR', '', 'RB/WR/TE', 'ER', 'Rookie']
+    position_dic = []
+    for j in range(len(data)):
+        position_dic.append(data[j].slot_position)
+    print(position_dic)
+    exit()
     for j in range(len(data)):
         print(data[j].name)
+        data[j].name = data[j].name.replace("'", "")
+        for position in all_positions:
+            if data[j].slot_position == position:
+                position_dic[position] = [data[j].name, data[j].slot_position, data[j].points,data[j].position,
+                                          data[j].proTeam,data[j].pro_opponent,data[j].projected_points,
+                                          data[j].points_breakdown]
+
+
+
         if data[j].slot_position == "IR":
             pass
         elif data[j].slot_position == "BE":
             bench_home_array = [data[j].name, data[j].slot_position, data[j].points]
-            total_bench.append([data[j].name, data[j].slot_position, data[j].points])
+            total_bench.append([position_dic])
 
         elif data[j].slot_position == "QB":
             qb_home_array = [data[j].name, data[j].slot_position, data[j].points]
@@ -247,7 +262,7 @@ def positional_stat_puller(data):
                               te_home_array, flex_home_array, dst_home_array, hc_home_array, total_bench]
     for i in range(len(pl_array)):
         if not pl_array[i]:
-            pl_array[i] = ['empty','',0.0]
+            pl_array[i] = ["empty","",0.0]
         else:
             pass
     return pl_array
@@ -261,7 +276,6 @@ def stats_display(df, position):
     #df[['Player', 'Position', 'Points']] = pd.DataFrame(df[position].tolist(), index=df.index)
 
     return df
-
 
 def compile_stats(position):
     for pos in position:
@@ -320,44 +334,16 @@ def week_scores(file, timer,league,week):
     print(og_df)
     og_df.to_csv(file,encoding="utf-8-sig",index=False)
 
-def week_finder(year,league):
-    today = datetime.date.today()
-
-    actual_year = today.year
-    settings = league.settings
-
-    if year < actual_year:
-        total_weeks = settings.reg_season_count + 1
-    else:
-        if league.nfl_week > settings.reg_season_count:
-            total_weeks = settings.reg_season_count + 1
-        else:
-            total_weeks = league.nfl_week
-    return total_weeks
-
-
 def pull_all_data(league_index, username, password, draft,year):
     weekly_df_array = []
 
-    for year in range(year,year+1):
+    for year in range(2022,2023):
 
         # league = League(league_id=league_index, year=year,username=username, password=password)
         league = League(league_id=league_index, year=year,espn_s2=username, swid=password)
         print('week: ' + str(league.nfl_week))
-        today = datetime.date.today()
-
-        actual_year = today.year
-        settings = league.settings
-
-        if league.year < actual_year:
-            total_weeks = settings.reg_season_count+1
-        else:
-            total_weeks = league.nfl_week
         if draft == 0:
-            print(league.year)
-            print(year)
-
-            for i in range(1, total_weeks):
+            for i in range(1, league.nfl_week):
                 if year < 2019:
                     box_scores = league.scoreboard(i)
                     print(box_scores[i].home_team)
@@ -371,11 +357,8 @@ def pull_all_data(league_index, username, password, draft,year):
                         weekly_df_array.append(stats)
                     else:
                         print(i)
-                        try:
-                            stats_append = side_points(box_scores, i, weekly_df_array[i-2], year)
-                            weekly_df_array.append(stats_append)
-                        except:
-                            print('week is beyond regular season (i.e. playoffs).')
+                        stats_append = side_points(box_scores, i, weekly_df_array[i-2], year)
+                        weekly_df_array.append(stats_append)
             combined_df = pd.concat(weekly_df_array)
             print(combined_df)
             combined_df.to_csv(str(league_index) + "_" + str(year) + "_team_stats.csv", encoding="utf-8-sig")
@@ -411,9 +394,9 @@ def side_points_tabulator(file, start, end,save_data,position):
             df_pos_temp = df_week[[var]] # make temporary dataframe with only the column of interest
             if count < 8:
                 df_pos_temp[var] = df_pos_temp[var].apply(literal_eval) # make sure it's the correct type (list, int)
-                print(df_pos_temp[var])
                 df_pos_temp[['Player','Position','Points']] = pd.DataFrame(df_pos_temp[var].tolist(),index= df_pos_temp.index) # split array into individual columns
                 del df_pos_temp[var]
+
             else:
                 df_pos_temp = df_pos_temp.sort_values(by=var, ascending=False)
             df_final = pd.concat([df_meta, df_pos_temp], axis=1)  # array with all data
@@ -579,26 +562,15 @@ def side_points_tabulator(file, start, end,save_data,position):
             export_df = export_df.append(final_total_sidepts)
             export_deep_stats = export_deep_stats.append(final_deep_stats)
     #print(export_df)
-
+    #print(export_deep_stats)
     if save_data == 1:
         export_df.to_csv("side-points-2021.csv", encoding='utf-8-sig')
         export_deep_stats.to_csv("side-point-deep-stats-2021.csv", encoding='utf-8-sig')
     if save_data == 2:
         popaxismsg(side_point_list[position],"asf",500)
     if save_data == 3:
-        export_df.to_csv("side-points-2021.csv", encoding='utf-8-sig')
-        export_deep_stats.to_csv("side-point-deep-stats-2021zz.csv", encoding='utf-8-sig')
-
         return side_point_list[position]
     if save_data == 4:
-
-        export_df.to_csv("side-points-2021.csv", encoding='utf-8-sig')
-        export_deep_stats.to_csv("side-point-deep-stats-2021ee.csv", encoding='utf-8-sig')
-
-        return export_df
-    if save_data == 5:
-        return export_deep_stats
-    if save_data == 6:
         return export_df
 
 
@@ -800,49 +772,6 @@ def year_finder(name):
             return i
         else:
             pass
-
-
-def year_aggregator(leagueid):  #this function will combine all team data and deep data from multiple years into 1 file.
-
-    deep_stats_lst = {}
-    team_stats_lst = {}
-
-    for file in glob.glob("*_team_stats.csv"):
-        if str(leagueid) in file:
-            df_temp = pd.read_csv(file,encoding='utf-8-sig')
-            file_name = str(file).replace(".csv",'').replace(str(leagueid)+"_","")
-            df_temp['Year'] = file_name.replace('_team_stats',"").replace("_","")
-            df_temp = df_temp.loc[:, ~df_temp.columns.str.contains('Unnamed')]
-            df_temp = df_temp.loc[:, ~df_temp.columns.str.contains('index')]
-
-            team_stats_lst[file_name] = df_temp
-            print(file)
-    team_combined_df = pd.concat(team_stats_lst.values(), ignore_index=True)
-
-    for file in glob.glob("*_deep-stats.xlsx"):
-        if str(leagueid) in file:
-            file_name = str(file).replace(".xlsx",'').replace(str(leagueid)+"_","")
-            df_temp = pd.read_excel(file,engine='openpyxl')
-            df_temp['Year'] = file_name.replace('_deep-stats',"").replace("_","")
-            df_temp = df_temp.loc[:, ~df_temp.columns.str.contains('Unnamed')]
-            df_temp = df_temp.loc[:, ~df_temp.columns.str.contains('index')]
-            deep_stats_lst[file_name] = df_temp
-            print(file)
-    deep_combined_df = pd.concat(deep_stats_lst.values(), ignore_index=True)
-
-
-    writer = pd.ExcelWriter(str(leagueid) + 'agg_data.xlsx', engine='xlsxwriter')
-    for file in team_stats_lst:
-        team_stats_lst[file].to_excel(writer, sheet_name=file,index=False)
-    for file in deep_stats_lst:
-        deep_stats_lst[file].to_excel(writer, sheet_name=file,index=False)
-    team_combined_df.to_excel(writer, sheet_name='team_combined',index=False)
-    deep_combined_df.to_excel(writer, sheet_name='deep_combined',index=False)
-    writer.sheets['team_combined'].activate()
-    writer.sheets['deep_combined'].activate()
-    writer.save()
-
-
 
 def popaxismsg(data,poptitle,size):
     gridcounter = 0
