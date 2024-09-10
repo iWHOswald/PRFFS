@@ -18,21 +18,21 @@ from colour import Color
 import matplotlib.ticker as ticker
 import seaborn as sns
 import os
-import prffs_library
+import prffs_library_global
 import glob
 from ast import literal_eval
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 from matplotlib import rcParams
-import xlsxwriter
-
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
 
-
+league_str = '917761'
 password = '{71735CA3-D03A-47E3-BB18-B4314B399BB1}'
 espn = "AEAI2axDp0zJHsR%2BXUt496H0E1r56UjU7QjY6OBYkXXGFkO%2FWgfyUys%2BVo%2B4Rsz4k9MBskSsCb8Si6mY1bZDdFzekj4vZ0g5RSHx0T7lNpQP%2BnmkKR5B21OJ9%2Bfpfwt4IMyajlCjG8G%2FU1Z6PnEQXS1l9daaP2gF4palYuw9zjNy%2ByI7NXDj0VDRDc2cw17KRwwjeU3NP%2FbsCF2t3PDPBgAplsX%2BhpUmYXnDa1jSQ5h2rRdI7Rrea7GzztnLtg94MfBkQk5QkRrsUFoq2U96iQk7ugXqpoo7u3azVG9EzDiSPw%3D%3D"
-
+#league_str = '1018860'
+#password = '{A3A24C9B-6362-4155-A24C-9B6362D155A9}'
+#espn = 'AEBvp4U1b1bIDog69lrCJxZ2a%2BSS8T7TmrfYGDZlNtLjfJThvvpcJaV2%2BJyMn0L7nyy%2Bw6lS5oKyHnyi0yoE4OESWB6o%2BYTJVZQzgUG7VZBb3mjdVR%2F2POH6zH2lHMZ8MKOD954mVS7Zts0SSyHUT2%2BLUZNGYWwQaQ4VNqDYB4BVodYHrFLbbaJ5eyQFaEQWQzs%2BOZbhMZq1EdtqcYvP0oqqQGmbkycsnmmsL00POHjvdF28wR7YUzQldIgekL0pp%2Fgxs9ZQwtw%2Bz5nQ0dSFuQzx'
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 500)
@@ -109,16 +109,20 @@ class MainWindow(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.league_loaded = 0
         gridcounter = 0  # This is what allows you to easily add new grid elements; just add gridcounter +=1
-        df_og = pd.read_csv('917761_2022_team_stats.csv')
-        max_week = df_og['Week'].max()
-        arr = []
+        #df_og = pd.read_csv('917761_2021_team_stats.csv')
+        #max_week = df_og['Week'].max()
+        self.arr = []
+        max_week = 4
         #for i in df_og['']
         for i in range(max_week):
-            arr.append(i+1)
-        print(arr)
+            self.arr.append(i+1)
+        print(self.arr)
 
         print('weeks played in season: ' + str(max_week))
-        league = League(league_id=917761, year=2022)
+        try:
+            league = League(league_id=917761, year=2022)
+        except:
+            print('cannot connect to league. Can only generate stats stored locally.')
         self.button_list = []
         self.stats = ['Most points',"QB", "RB", "WR", "TE", 'DST/HC','Most points in loss','2nd highest points in loss',
         'Least points', 'largest margin-of-victory','side points']
@@ -127,7 +131,7 @@ class MainWindow(tk.Frame):
         self.league_id_lbl = Label(self, text="League ID:")
         self.league_id_lbl.grid(sticky=W, row=gridcounter, column=0)
         self.league_id = Entry(self, width=10)
-        self.league_id.insert(0,917761)
+        self.league_id.insert(0,league_str)
         self.league_id.grid(sticky=W, row=gridcounter, column=1)
         gridcounter = gridcounter + 1
         self.league_id_lbl = Label(self, text="username:")
@@ -144,16 +148,16 @@ class MainWindow(tk.Frame):
         gridcounter = gridcounter + 1
         self.league_id_lbl = Label(self, text="Year:")
         self.league_id_lbl.grid(sticky=W, row=gridcounter, column=0)
-        self.year = Entry(self, width=10)
-        self.year.insert(0,2022)
-        self.year.grid(sticky=W, row=gridcounter, column=1)
+        self.year_id = Entry(self, width=10)
+        self.year_id.insert(0,'2022')
+        self.year_id.grid(sticky=W, row=gridcounter, column=1)
         gridcounter = gridcounter + 1
 
 
-        self.pull_data = ttk.Button(self, text="Pull data",command=lambda: prffs_library.pull_all_data(917761, espn, password,0,int(self.year.get())))
+        self.pull_data = ttk.Button(self, text="Pull data",command=lambda: prffs_library_global.pull_all_data(self.league_id.get(), self.username.get(), self.password.get(),0,self.year_id.get()))
         self.pull_data.grid(sticky=NW, row=gridcounter, column=0, pady=4, padx=4)
-        self.agg_data = ttk.Button(self, text="Combine data",command=lambda: prffs_library.year_aggregator(917761))
-        self.agg_data.grid(sticky=NW, row=gridcounter, column=1, pady=4, padx=4)
+        self.pull_data = ttk.Button(self, text="Pull draft data",command=lambda: prffs_library_global.pull_all_data(self.league_id.get(), self.username.get(), self.password.get(),1,self.year_id.get()))
+        self.pull_data.grid(sticky=NW, row=gridcounter, column=1, pady=4, padx=4)
 
         gridcounter = gridcounter + 1
 
@@ -162,16 +166,11 @@ class MainWindow(tk.Frame):
         self.week.grid(sticky=W, row=gridcounter, column=0)
         wkvar = StringVar()
         wkvar.set(1)
-        self.week = OptionMenu(self, wkvar, *arr)
+        self.week = OptionMenu(self, wkvar, *self.arr)
         self.week.grid(sticky=W, row=gridcounter, column=1)
 
-        self.recent_week = arr[-1]
-        print(self.recent_week)
+        self.recent_week = self.arr[-1]
 
-
-        #self.week = Entry(self, width=10)
-        #self.week.insert(0,1)
-        #self.week.grid(sticky=W, row=gridcounter, column=1)
         gridcounter = gridcounter + 1
         self.plot_list = []
         for counter, value in enumerate(self.stats):
@@ -183,126 +182,102 @@ class MainWindow(tk.Frame):
             self.plot.state(['!alternate'])
             self.plot.state(['!selected'])
             self.plot.grid(sticky=W, row=gridcounter, column=0)
-
             self.button_list.append(counter)
             self.plot_list.append(self.plot)
-
             gridcounter = gridcounter + 1
 
-        self.get_stats = ttk.Button(self, text="Plot",command=lambda: MainWindow.plot_organizer(self,self.plot_list,var.get(),wkvar.get(),0))
+        self.get_stats = ttk.Button(self, text="view plot",command=lambda: MainWindow.plot_organizer(self,self.plot_list,var.get(),wkvar.get(),0))
         self.get_stats.grid(sticky=NW, row=gridcounter, column=0, pady=4, padx=4)
-        self.get_stats = ttk.Button(self, text="time dep plot",command=lambda: MainWindow.time_plot_organizer(self,self.plot_list,var.get(),wkvar.get(),0,self.year.get(),self.league_id.get()))
-        self.get_stats.grid(sticky=NW, row=gridcounter, column=2, pady=4, padx=4)
-
-        self.get_stats = ttk.Button(self, text="get stats",command=lambda: MainWindow.button_lister(self,var.get(),wkvar.get(),0))
+        self.get_stats = ttk.Button(self, text="get stats",command=lambda: MainWindow.button_lister(self,var.get(),wkvar.get()))
         self.get_stats.grid(sticky=NW, row=gridcounter, column=1, pady=4, padx=4)
         gridcounter = gridcounter + 1
-        self.get_stats = ttk.Button(self, text="cumulative pts",command=lambda: MainWindow.cum_points(self,self.plot_list,var.get(),wkvar.get(),self.year.get(),self.league_id.get()))
-        self.get_stats.grid(sticky=NW, row=gridcounter+1, column=0, pady=4, padx=4)
-        self.get_stats = ttk.Button(self, text="save deep",command=lambda: MainWindow.deep_points(self,self.plot_list,var.get(),wkvar.get(),self.year.get(),self.league_id.get()))
-        self.get_stats.grid(sticky=NW, row=gridcounter+1, column=1, pady=4, padx=4)
-
-        self.get_stats = ttk.Button(self, text="save wkly plot",command=lambda: MainWindow.plot_organizer(self,self.plot_list,var.get(),wkvar.get(),1,self.year.get(),self.league_id.get()))
+        self.get_stats = ttk.Button(self, text="save wkly plot",command=lambda: MainWindow.plot_organizer(self,self.plot_list,var.get(),wkvar.get(),1))
+        self.get_stats.grid(sticky=NW, row=gridcounter, column=0, pady=4, padx=4)
+        self.get_stats = ttk.Button(self, text="view cumulative pts",command=lambda: MainWindow.cum_points(self,self.plot_list,var.get(),wkvar.get(),0))
         self.get_stats.grid(sticky=NW, row=gridcounter, column=1, pady=4, padx=4)
-
-
+        gridcounter = gridcounter + 1
+        self.get_stats = ttk.Button(self, text="save cumulative pts plot",command=lambda: MainWindow.cum_points(self,self.plot_list,var.get(),wkvar.get(),1))
+        self.get_stats.grid(sticky=NW, row=gridcounter, column=1, pady=4, padx=4)
 
 
     def button_lister(self, value,week):
         print(value)
         print('getting stats for week: ' + str(week))
-        if week != "cum":
-            prffs_library.side_points_tabulator('917761_2022_team_stats.csv', int(week), int(week)+1, 2, value)
+        if week == "cumulative":
+            prffs_library_global.side_points_tabulator('917761_' + str(self.year_id.get())+ '_team_stats.csv', 1, self.arr[-1], 2, value)
             print('DF #: ' +  str(value))
         else:
-            prffs_library.side_points_tabulator('917761_2022_team_stats.csv', int(week), int(week)+1, 2, value)
+            prffs_library_global.side_points_tabulator('917761_' + str(self.year_id.get())+ '_team_stats.csv', int(week), int(week)+1, 2, value)
 
-    def deep_points(self,df,current_week,var,year,leagueid):
-        data_array = []
-        data_array_2 = []
-        temp_df = []
-        print('recent week: ' + str(self.recent_week))
-        df_file = pd.read_csv(str(leagueid) + "_" + str(year) + '_team_stats.csv')
-        max_week = int(df_file['Week'].max())
-        #for i in range(1,self.recent_week+1):
-        for i in range(1,max_week+1):
-            print(i)
-            print('shet')
-            df_temp = prffs_library.side_points_tabulator(str(leagueid) + "_" + str(year) + '_team_stats.csv', i, i + 1, 5, var)
-            df_temp_counter = prffs_library.side_points_tabulator(str(leagueid) + "_" + str(year) + '_team_stats.csv', i, i + 1, 6, var)
-            data_array.append(df_temp)
-            data_array_2.append(df_temp_counter)
-        deep_data = pd.concat(data_array).reset_index()
-        cum_points = pd.concat(data_array_2).reset_index()
-        cum_points['cumulative side pts'] = 0
-        for i in cum_points['Owner']:
-            df_temp = cum_points[cum_points['Owner'] == i]
-            df_temp['cumulative side pts'] = df_temp['Side points'].cumsum()
-            print(df_temp)
-            temp_df.append(df_temp)
-        cum_points_final = pd.concat(temp_df).reset_index()
-
-        #data_end = data_end.groupby(["Team ID", "Owner"], as_index=False)["Side points"].sum()
-        #data_end = data_end.sort_values('Side points', ascending=False)
-        writer = pd.ExcelWriter(str(leagueid) + "_" + str(year) + '_deep-stats.xlsx', engine='xlsxwriter')
-        deep_data.to_excel(writer, sheet_name='Deep stats')
-        cum_points_final.to_excel(writer, sheet_name='Cumul side points')
-        writer.save()
-
-
-
-
-
-
-
-    def cum_points(self,df,var,wkvar,year,leagueid):
+    def cum_points(self,df,var,wkvar,save):
         data_array = []
         df_arr = []
-        for i in range(1,self.recent_week+1):
-            data = prffs_library.side_points_tabulator(str(leagueid) + "_" + str(year) + '_team_stats.csv', i, i + 1, 4, var)
+        for i in range(1, self.recent_week + 1):
+            data = prffs_library_global.side_points_tabulator('917761_2022_team_stats.csv', i, i + 1, 4, var)
             data_array.append(data)
         data_end = pd.concat(data_array).reset_index()
 
         data_end = data_end.groupby(["Team ID", "Owner"], as_index=False)["Side points"].sum()
         data_end = data_end.sort_values('Side points', ascending=False)
-        data_end.to_csv('asdf.csv')
+
         df_arr.append(data_end)
 
-        MainWindow.plotter(self, df_arr, 0,1)
+        MainWindow.plotter(self, df_arr,wkvar, save)
 
-    def plot_organizer(self,plot_list, value, week,save,year,leagueid):
+    def plotter2(self, df_array,week,save): # this plots cumulative data.
+
+        # style stuff
+        sns.set_theme(style="white", context="talk")
+        sns.set(font="Verdana")
+
+        font = {'family': 'arial',
+                'weight': 'normal',
+                'size': 12}
+        matplotlib.rc('font', **font)
+        # style stuff
+
+        df_names = []
+        fig, axs = plt.subplots(1, 1, sharex=True, sharey=True,figsize=(6, 6))
+        MainWindow.name_fix(self, df_array)
+        axis = plt.subplot2grid((1, 1), (0, 0))
+        print(df_array)
+        axis.axhline(0, color="k", clip_on=False)
+        sns.barplot(x=df_array['Owner'], y=df_array['Points'], palette="rocket", ax=axis)
+
+        if 'Plus/Minus' in str(df_array['Position'][0]):
+            axis.set_title(str(df_array['Position'][0]).replace('Plus/Minus','Margin of victory'))
+        axis.set_title('Cumulative ' +  str(df_array['Position'][0]) + ' points through week ' + str(self.recent_week))
+
+        # add text above histograms
+        for p in axis.patches:
+            axis.annotate("%.2f" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
+                           ha='center', va='center', fontsize=10, color='black', xytext=(0, 5),
+                           textcoords='offset points')
+        axis.set_xticklabels(axis.get_xticklabels(), rotation=45)
+        sns.despine(bottom=True)
+        plt.tight_layout(h_pad=2)
+        df_names.append(df_array.columns[:-2].values)
+        #filename = str(df_array[0].columns[-2]).replace('/', '-')
+        #if self.save_button.instate['']
+        if save == 1:
+            plt.savefig('week'+str(week)+'_'+ filename +'.png',dpi=300)
+        else:
+            plt.show()
+
+
+    def plot_organizer(self,plot_list, value, week,save):
         df_list = []
         for counter, i in enumerate(plot_list):
             if str(i.state()) == "('selected',)":
                 if counter != 10:
-                    df = prffs_library.side_points_tabulator(str(leagueid) + "_" + str(year) + '_team_stats.csv', int(week), int(week)+1, 3, counter)
-                    print(df)
+                    df = prffs_library_global.side_points_tabulator(str(self.league_id.get()) + '_' + str(self.year_id.get())+ '_team_stats.csv', int(week), int(week)+1, 3, counter)
+                    print('DF #: ' + str(counter))
                 elif counter == 10:
-                    df = prffs_library.side_points_tabulator(str(leagueid) + "_" + str(year) + '_team_stats.csv', int(week), int(week)+1, 4, counter)
+                    df = prffs_library_global.side_points_tabulator(str(self.league_id.get()) + '_' + str(self.year_id.get())+ '_team_stats.csv', int(week), int(week)+1, 4, counter)
                     print('DF #: ' + str(counter))
                 df_list.append(df)
+
         MainWindow.plotter(self, df_list, week,save)
-
-    def time_plot_organizer(self,plot_list, value, week,year,leagueid):
-        df_time_list = []
-        for j in range(1,len(week)):
-            df_list = []
-            for counter, i in enumerate(plot_list):
-                if str(i.state()) == "('selected',)":
-                    if counter != 10:
-                        df = prffs_library.side_points_tabulator(str(leagueid) + "_" + str(year) + '_team_stats.csv', int(j), int(j)+1, 3, counter)
-                        print(df)
-                    elif counter == 10: # this is for side points
-                        df = prffs_library.side_points_tabulator(str(leagueid) + "_" + str(year) + '_team_stats.csv', int(j), int(j)+1, 4, counter)
-                        print('DF #: ' + str(counter))
-                    df_list.append(df)
-            print(df_list)
-            df_time_list.append(df_list)
-        print('df_time_ist')
-        print(df_time_list)
-        exit()
-        MainWindow.plotter(self, df_list, week)
-
 
 
     def name_fix(self,df):
@@ -311,6 +286,7 @@ class MainWindow(tk.Frame):
             df["Owner"].replace({i: i.split()[0]}, inplace=True)
         print(df)
         return df
+
 
     def plotter(self, df_array,week,save):
 
@@ -326,6 +302,8 @@ class MainWindow(tk.Frame):
 
 
         num_plots = len(df_array)
+        if num_plots == 12:
+            num_plots = 1
         print('number of plots to generate: ' + str(num_plots))
         df_names = []
         if num_plots > 0:
@@ -363,12 +341,9 @@ class MainWindow(tk.Frame):
             else:
                 filename = str(df_array[0].columns[-2]).replace('/', '-')
             if save == 1:
-                plt.savefig('2022_week'+str(week)+'_'+ filename +'.png',dpi=300)
+                plt.savefig(str(self.year_id.get())+ '_week'+str(week)+'_'+ filename +'.png',dpi=300)
             else:
                 plt.show()
-
-            #plt.savefig('week'+str(week)+'_'+ filename +'.png',dpi=300)
-            plt.show()
 
 
     def tdep_plotter(self,df,week,team,division,cumulative,):
@@ -376,11 +351,10 @@ class MainWindow(tk.Frame):
         print(df_teams)
 
 
-#prffs_library.scheduler(917761, espn, password,2021,10,1) # args = leagueID, ID, PW, YEAR, WEEK, time interval
+#prffs_library_global.scheduler(917761, espn, password,2021,10,1) # args = leagueID, ID, PW, YEAR, WEEK, time interval
 #while True:
 #    schedule.run_pending()
 #    time.sleep(1)
-
 
 
 def plot_intergame_data(df,matchup_id):
@@ -504,7 +478,7 @@ draft_years = ['917761_2021draft_stats_py.csv','917761_2020_draft_stats.csv']
 #side_point_graphs('side-point-deep-stats-2021.csv', 1)
 
 ### PULL SEASONAL DATA ###
-#pull_all_data(917761, espn, password,0)
+#pull_all_data(917761, espn, password,1)
 
 ### DRAFT ANALYSIS IN CSV ###
 # draft_decompose(draft_years,4)

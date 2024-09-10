@@ -1,20 +1,193 @@
-﻿,,,,Team,2021,2020
-Iain,1732.0625,1923.375,,,,
-Randy,1780.25,1901.0625,,,,
-Grant,1802.125,1877.8125,,,,
-Marcus,1816.25,2045.0625,,,,
-Cody,1873.3125,1790.125,,,,
-Kelton,1896.6875,1975.75,,,,
-Kelby,1953.625,2053.0625,,,,
-James,1996.25,1819.625,,,,
-Travis,2014.3125,2021.4375,,,,
-Michael,2023.625,1998.6875,,,,
-Tristan,2027.9375,1774.75,,,,
-JC,2166.1875,1871.1875,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-use script analysis in PRFFS py,,,,,,
+﻿,team ID,Owner,Division,Player ID,Player Name,Pro Team,Position,Total Points,Round Drafted,round_pick,Position Drafted,bid_amount,Dollar value
+0,8,Travis Bryce,Porker,3117251,Christian McCaffrey,CAR,RB,109.0,1,1,1,77,1.42
+1,4,marcus tatum,Porker,3116593,Dalvin Cook,MIN,RB,189.3,1,2,2,73,2.59
+2,7,JC Francis,Dumpster,3139477,Patrick Mahomes,KC,QB,361.66,1,3,3,21,17.22
+3,11,Kelton Koch,Brutal,3929630,Saquon Barkley,NYG,RB,128.1,1,4,4,57,2.25
+4,7,JC Francis,Dumpster,3051392,Ezekiel Elliott,DAL,RB,228.56,1,5,5,62,3.69
+5,3,Tristan Oswald,Porker,3043078,Derrick Henry,TEN,RB,184.3,1,6,6,75,2.46
+6,7,JC Francis,Dumpster,15847,Travis Kelce,KC,TE,216.8,1,7,7,62,3.5
+7,12,Michael Tanner,Dumpster,3128720,Nick Chubb,CLE,RB,205.3,1,8,8,55,3.73
+8,12,Michael Tanner,Dumpster,3054850,Alvin Kamara,NO,RB,211.2,1,9,9,74,2.85
+9,3,Tristan Oswald,Porker,3068267,Austin Ekeler,LAC,RB,308.8,1,10,10,58,5.32
+10,1,Iain Oswald,Dumpster,3045147,James Conner,ARI,RB,239.2,1,11,11,7,34.17
+11,7,JC Francis,Dumpster,3051926,Gus Edwards,BAL,RB,0.0,1,12,12,25,0.0
+12,8,Travis Bryce,Porker,16800,Davante Adams,GB,WR,282.8,2,1,13,53,5.34
+13,9,kelby koch,Brutal,4242335,Jonathan Taylor,IND,RB,353.1,2,2,14,57,6.19
+14,9,kelby koch,Brutal,3918298,Josh Allen,BUF,QB,402.58,2,3,15,21,19.17
+15,3,Tristan Oswald,Porker,3917315,Kyler Murray,ARI,QB,300.48,2,4,16,17,17.68
+16,10,Grant R.,Porker,4360294,Antonio Gibson,WSH,RB,208.1,2,5,17,53,3.93
+17,2,James Oswald,Dumpster,3042519,Aaron Jones,GB,RB,203.0,2,6,18,68,2.99
+18,2,James Oswald,Dumpster,16737,Mike Evans,TB,WR,225.5,2,7,19,23,9.8
+19,4,marcus tatum,Porker,2576414,Raheem Mostert,SF,RB,2.0,2,8,20,15,0.13
+20,6,Cody Coughlin,Brutal,4241457,Najee Harris,PIT,RB,263.7,2,9,21,62,4.25
+21,2,James Oswald,Dumpster,3116164,Mike Gesicki,MIA,TE,128.5,2,10,22,3,42.83
+22,5,Randy Aman,Brutal,2577417,Dak Prescott,DAL,QB,320.56,2,11,23,11,29.14
+23,4,marcus tatum,Porker,2976316,Michael Thomas,NO,WR,0.0,2,12,24,6,0.0
+24,1,Iain Oswald,Dumpster,4360438,Brandon Aiyuk,SF,WR,142.3,3,1,25,15,9.49
+25,9,kelby koch,Brutal,3116385,Joe Mixon,CIN,RB,266.9,3,2,26,46,5.8
+26,6,Cody Coughlin,Brutal,4242214,Clyde Edwards-Helaire,KC,RB,108.1,3,3,27,46,2.35
+27,2,James Oswald,Dumpster,3116406,Tyreek Hill,KC,WR,241.0,3,4,28,51,4.73
+28,1,Iain Oswald,Dumpster,4262921,Justin Jefferson,MIN,WR,276.4,3,5,29,40,6.91
+29,5,Randy Aman,Brutal,4052042,James Robinson,JAX,RB,158.4,3,6,30,35,4.53
+30,11,Kelton Koch,Brutal,2976212,Stefon Diggs,BUF,WR,234.0,3,7,31,51,4.59
+31,5,Randy Aman,Brutal,3925357,Calvin Ridley,ATL,WR,55.6,3,8,32,45,1.24
+32,6,Cody Coughlin,Brutal,4047650,DK Metcalf,SEA,WR,206.8,3,9,33,44,4.7
+33,6,Cody Coughlin,Brutal,4239934,AJ Dillon,GB,RB,168.6,3,10,34,4,42.15
+34,7,JC Francis,Dumpster,3115364,Leonard Fournette,TB,RB,221.1,3,11,35,6,36.85
+35,7,JC Francis,Dumpster,3916148,Tony Pollard,DAL,RB,143.1,3,12,36,6,23.85
+36,1,Iain Oswald,Dumpster,4047365,Josh Jacobs,OAK,RB,199.0,4,1,37,30,6.63
+37,2,James Oswald,Dumpster,15795,DeAndre Hopkins,ARI,WR,126.2,4,2,38,43,2.93
+38,1,Iain Oswald,Dumpster,3919596,Chris Carson,SEA,RB,45.1,4,3,39,36,1.25
+39,10,Grant R.,Porker,4047646,A.J. Brown,TEN,WR,149.4,4,4,40,39,3.83
+40,5,Randy Aman,Brutal,2576925,Darren Waller,OAK,TE,106.0,4,5,41,34,3.12
+41,11,Kelton Koch,Brutal,3040151,George Kittle,SF,TE,162.5,4,6,42,29,5.6
+42,2,James Oswald,Dumpster,3122840,Deshaun Watson,HOU,QB,0.0,4,7,43,1,0.0
+43,9,kelby koch,Brutal,4360248,Kyle Pitts,ATL,TE,142.6,4,8,44,13,10.97
+44,9,kelby koch,Brutal,15818,Keenan Allen,LAC,WR,204.8,4,9,45,32,6.4
+45,5,Randy Aman,Brutal,4035538,David Montgomery,CHI,RB,174.0,4,10,46,32,5.44
+46,11,Kelton Koch,Brutal,14881,Russell Wilson,SEA,QB,242.82,4,11,47,10,24.28
+47,6,Cody Coughlin,Brutal,4241401,Trey Sermon,SF,RB,26.8,4,12,48,7,3.83
+48,12,Michael Tanner,Dumpster,4045163,Miles Sanders,PHI,RB,104.2,5,1,49,30,3.47
+49,10,Grant R.,Porker,3121422,Terry McLaurin,WSH,WR,175.0,5,2,50,32,5.47
+50,4,marcus tatum,Porker,3916387,Lamar Jackson,BAL,QB,239.98,5,3,51,23,10.43
+51,10,Grant R.,Porker,2577327,Tyler Lockett,SEA,WR,204.9,5,4,52,19,10.78
+52,8,Travis Bryce,Porker,16799,Allen Robinson II,CHI,WR,68.0,5,5,53,24,2.83
+53,1,Iain Oswald,Dumpster,2976499,Amari Cooper,DAL,WR,168.5,5,6,54,21,8.02
+54,6,Cody Coughlin,Brutal,2330,Tom Brady,TB,QB,374.74,5,7,55,2,187.37
+55,9,kelby koch,Brutal,3025433,Mike Davis,ATL,RB,116.2,5,8,56,19,6.12
+56,11,Kelton Koch,Brutal,3925347,Damien Harris,NE,RB,201.1,5,9,57,13,15.47
+57,12,Michael Tanner,Dumpster,16733,Odell Beckham Jr.,LAR,WR,107.1,5,10,58,5,21.42
+58,12,Michael Tanner,Dumpster,4038941,Justin Herbert,LAC,QB,380.76,5,11,59,7,54.39
+59,11,Kelton Koch,Brutal,-14027,Buccaneers Coach,TB,HC,67.0,5,12,60,4,16.75
+60,10,Grant R.,Porker,4259545,D'Andre Swift,DET,RB,177.9,6,1,61,21,8.47
+61,12,Michael Tanner,Dumpster,4040715,Jalen Hurts,PHI,QB,312.16,6,2,62,3,104.05
+62,10,Grant R.,Porker,8439,Aaron Rodgers,GB,QB,332.8,6,3,63,9,36.98
+63,1,Iain Oswald,Dumpster,13982,Julio Jones,TEN,WR,64.9,6,4,64,11,5.9
+64,8,Travis Bryce,Porker,4241389,CeeDee Lamb,DAL,WR,193.3,6,5,65,24,8.05
+65,5,Randy Aman,Brutal,15880,Robert Woods,LAR,WR,114.7,6,6,66,17,6.75
+66,10,Grant R.,Porker,3052876,William Fuller V,MIA,WR,6.6,6,7,67,3,2.2
+67,4,marcus tatum,Porker,3915416,DJ Moore,CAR,WR,191.0,6,8,68,13,14.69
+68,10,Grant R.,Porker,4243160,Laviska Shenault Jr.,JAX,WR,95.5,6,9,69,4,23.88
+69,1,Iain Oswald,Dumpster,3120348,JuJu Smith-Schuster,PIT,WR,27.3,6,10,70,6,4.55
+70,3,Tristan Oswald,Porker,2974858,Kenny Golladay,NYG,WR,70.6,6,11,71,13,5.43
+71,8,Travis Bryce,Porker,3886818,Myles Gaskin,MIA,RB,149.1,6,12,72,10,14.91
+72,3,Tristan Oswald,Porker,3932905,Diontae Johnson,PIT,WR,220.9,7,1,73,11,20.08
+73,11,Kelton Koch,Brutal,2977187,Cooper Kupp,LAR,WR,367.0,7,2,74,18,20.39
+74,4,marcus tatum,Porker,3116365,Mark Andrews,BAL,TE,247.6,7,3,75,10,24.76
+75,12,Michael Tanner,Dumpster,16460,Adam Thielen,MIN,WR,166.3,7,4,76,14,11.88
+76,4,marcus tatum,Porker,4239993,Tee Higgins,CIN,WR,182.1,7,5,77,7,26.01
+77,1,Iain Oswald,Dumpster,3059915,Kareem Hunt,CLE,RB,99.0,7,6,78,6,16.5
+78,10,Grant R.,Porker,4036133,T.J. Hockenson,DET,TE,114.8,7,7,79,4,28.7
+79,10,Grant R.,Porker,3128721,Sony Michel,LAR,RB,135.8,7,8,80,3,45.27
+80,4,marcus tatum,Porker,4046692,Chase Claypool,PIT,WR,137.1,7,9,81,6,22.85
+81,7,JC Francis,Dumpster,4241985,J.K. Dobbins,BAL,RB,0.0,7,10,82,1,0.0
+82,9,kelby koch,Brutal,2574808,Robby Anderson,CAR,WR,112.0,7,11,83,3,37.33
+83,5,Randy Aman,Brutal,16731,Brandin Cooks,HOU,WR,186.8,7,12,84,2,93.4
+84,12,Michael Tanner,Dumpster,16813,Logan Thomas,WSH,TE,44.6,8,1,85,3,14.87
+85,3,Tristan Oswald,Porker,3116165,Chris Godwin,TB,WR,193.4,8,2,86,15,12.89
+86,1,Iain Oswald,Dumpster,2573401,Tyler Higbee,LAR,TE,116.5,8,3,87,4,29.12
+87,3,Tristan Oswald,Porker,2975674,Robert Tonyan,GB,TE,41.4,8,4,88,1,41.4
+88,4,marcus tatum,Porker,3119195,Chase Edmonds,ARI,RB,121.8,8,5,89,11,11.07
+89,11,Kelton Koch,Brutal,4036348,Michael Gallup,DAL,WR,74.0,8,6,90,3,24.67
+90,4,marcus tatum,Porker,4361579,Javonte Williams,DEN,RB,183.4,8,7,91,9,20.38
+91,2,James Oswald,Dumpster,4040761,Devin Singletary,BUF,RB,177.8,8,8,92,2,88.9
+92,4,marcus tatum,Porker,4241463,Jerry Jeudy,DEN,WR,66.0,8,9,93,10,6.6
+93,7,JC Francis,Dumpster,3728262,Ray-Ray McCloud,PIT,WR,46.7,8,10,94,1,46.7
+94,4,marcus tatum,Porker,3045144,Tyler Boyd,CIN,WR,150.34,8,11,95,3,50.11
+95,12,Michael Tanner,Dumpster,3121023,Dallas Goedert,PHI,TE,137.0,8,12,96,2,68.5
+96,6,Cody Coughlin,Brutal,3128429,Courtland Sutton,DEN,WR,121.24,9,1,97,12,10.1
+97,8,Travis Bryce,Porker,3054212,Jonnu Smith,NE,TE,53.4,9,2,98,1,53.4
+98,8,Travis Bryce,Porker,14876,Ryan Tannehill,TEN,QB,268.36,9,3,99,2,134.18
+99,5,Randy Aman,Brutal,2576434,Melvin Gordon III,DEN,RB,181.1,9,4,100,2,90.55
+100,6,Cody Coughlin,Brutal,4362628,Ja'Marr Chase,CIN,WR,264.1,9,5,101,8,33.01
+101,5,Randy Aman,Brutal,4039359,Darrell Henderson Jr.,LAR,RB,148.9,9,6,102,12,12.41
+102,7,JC Francis,Dumpster,4241478,DeVonta Smith,PHI,WR,153.6,9,7,103,3,51.2
+103,11,Kelton Koch,Brutal,4035676,Zack Moss,BUF,RB,93.7,9,8,104,6,15.62
+104,1,Iain Oswald,Dumpster,2979843,Kenyan Drake,OAK,RB,87.5,9,9,105,2,43.75
+105,7,JC Francis,Dumpster,3044720,Joshua Dobbs,PIT,QB,0.0,9,10,106,1,0.0
+106,4,marcus tatum,Porker,3045138,Mike Williams,LAC,WR,208.6,9,11,107,2,104.3
+107,6,Cody Coughlin,Brutal,13934,Antonio Brown,None,WR,100.1,9,12,108,5,20.02
+108,5,Randy Aman,Brutal,16790,Jarvis Landry,CLE,WR,107.0,10,1,109,1,107.0
+109,10,Grant R.,Porker,4241416,Chuba Hubbard,CAR,RB,125.1,10,2,110,2,62.55
+110,1,Iain Oswald,Dumpster,4036131,Noah Fant,DEN,TE,125.0,10,3,111,3,41.67
+111,10,Grant R.,Porker,3916430,Nyheim Hines,IND,RB,92.6,10,4,112,2,46.3
+112,1,Iain Oswald,Dumpster,12483,Matthew Stafford,LAR,QB,329.74,10,5,113,2,164.87
+113,1,Iain Oswald,Dumpster,3912550,Ronald Jones II,TB,RB,74.2,10,6,114,1,74.2
+114,2,James Oswald,Dumpster,8664,Ryan Fitzpatrick,WSH,QB,0.72,10,7,115,1,0.72
+115,4,marcus tatum,Porker,4048244,Alexander Mattison,MIN,RB,109.9,10,8,116,5,21.98
+116,3,Tristan Oswald,Porker,3042778,Corey Davis,NYJ,WR,88.2,10,9,117,2,44.1
+117,11,Kelton Koch,Brutal,3126486,Deebo Samuel,SF,WR,300.46,10,10,118,2,150.23
+118,12,Michael Tanner,Dumpster,2508176,David Johnson,HOU,RB,65.3,10,11,119,1,65.3
+119,6,Cody Coughlin,Brutal,13229,Rob Gronkowski,TB,TE,143.7,10,12,120,1,143.7
+120,6,Cody Coughlin,Brutal,2980453,Jamaal Williams,DET,RB,106.8,11,1,121,2,53.4
+121,10,Grant R.,Porker,4240657,Michael Carter,NYJ,RB,136.4,11,2,122,2,68.2
+122,7,JC Francis,Dumpster,3115394,DJ Chark Jr.,JAX,WR,30.9,11,3,123,3,10.3
+123,3,Tristan Oswald,Porker,2572861,J.D. McKissic,WSH,RB,106.4,11,4,124,1,106.4
+124,7,JC Francis,Dumpster,-16027,Buccaneers D/ST,TB,D/ST,147.0,11,5,125,2,73.5
+125,1,Iain Oswald,Dumpster,-16023,Steelers D/ST,PIT,D/ST,125.0,11,6,126,3,41.67
+126,2,James Oswald,Dumpster,-16002,Bills D/ST,BUF,D/ST,168.0,11,7,127,1,168.0
+127,4,marcus tatum,Porker,-16014,Rams D/ST,LAR,D/ST,130.0,11,8,128,3,43.33
+128,10,Grant R.,Porker,4035170,Marquez Callaway,NO,WR,128.8,11,9,129,3,42.93
+129,7,JC Francis,Dumpster,15072,Marvin Jones Jr.,JAX,WR,143.7,11,10,130,1,143.7
+130,12,Michael Tanner,Dumpster,4241372,Marquise Brown,BAL,WR,180.8,11,11,131,1,180.8
+131,6,Cody Coughlin,Brutal,3043275,Austin Hooper,CLE,TE,73.5,11,12,132,1,73.5
+132,7,JC Francis,Dumpster,3121427,Curtis Samuel,WSH,WR,6.8,12,1,133,2,3.4
+133,7,JC Francis,Dumpster,4035687,Michael Pittman Jr.,IND,WR,194.6,12,2,134,2,97.3
+134,9,kelby koch,Brutal,4372016,Jaylen Waddle,MIA,WR,193.8,12,3,135,1,193.8
+135,6,Cody Coughlin,Brutal,4241475,Henry Ruggs III,None,WR,72.5,12,4,136,2,36.25
+136,6,Cody Coughlin,Brutal,4360310,Trevor Lawrence,JAX,QB,199.04,12,5,137,2,99.52
+137,1,Iain Oswald,Dumpster,-14012,Chiefs Coach,KC,HC,55.0,12,6,138,5,11.0
+138,11,Kelton Koch,Brutal,-14002,Bills Coach,BUF,HC,80.0,12,7,139,2,40.0
+139,10,Grant R.,Porker,-14009,Packers Coach,GB,HC,47.0,12,8,140,3,15.67
+140,10,Grant R.,Porker,-16007,Broncos D/ST,DEN,D/ST,123.0,12,9,141,1,123.0
+141,7,JC Francis,Dumpster,-14006,Cowboys Coach,DAL,HC,64.0,12,10,142,1,64.0
+142,12,Michael Tanner,Dumpster,-16005,Browns D/ST,CLE,D/ST,127.0,12,11,143,1,127.0
+143,6,Cody Coughlin,Brutal,-16019,Giants D/ST,NYG,D/ST,107.0,12,12,144,1,107.0
+144,5,Randy Aman,Brutal,-16033,Ravens D/ST,BAL,D/ST,98.0,13,1,145,2,49.0
+145,8,Travis Bryce,Porker,4362887,Justin Fields,CHI,QB,126.8,13,2,146,1,126.8
+146,9,kelby koch,Brutal,3915511,Joe Burrow,CIN,QB,314.24,13,3,147,1,314.24
+147,3,Tristan Oswald,Porker,15920,Latavius Murray,BAL,RB,98.6,13,4,148,1,98.6
+148,11,Kelton Koch,Brutal,-16028,Commanders D/ST,WSH,D/ST,111.0,13,5,149,1,111.0
+149,2,James Oswald,Dumpster,-14010,Titans Coach,TEN,HC,44.0,13,6,150,1,44.0
+150,4,marcus tatum,Porker,-14033,Ravens Coach,BAL,HC,24.0,13,7,151,1,24.0
+151,12,Michael Tanner,Dumpster,16913,James White,NE,RB,25.2,13,8,152,1,25.2
+152,6,Cody Coughlin,Brutal,-14005,Browns Coach,CLE,HC,29.0,13,9,153,1,29.0
+153,5,Randy Aman,Brutal,-14026,Seahawks Coach,SEA,HC,34.0,13,10,154,1,34.0
+154,8,Travis Bryce,Porker,4035004,Mecole Hardman,KC,WR,111.4,13,11,155,1,111.4
+155,9,kelby koch,Brutal,3052117,Phillip Lindsay,MIA,RB,43.4,13,12,156,1,43.4
+156,3,Tristan Oswald,Porker,-16022,Cardinals D/ST,ARI,D/ST,131.0,14,1,157,1,131.0
+157,11,Kelton Koch,Brutal,14053,Randall Cobb,GB,WR,79.6,14,2,158,1,79.6
+158,2,James Oswald,Dumpster,13981,Mark Ingram II,NO,RB,95.1,14,3,159,1,95.1
+159,12,Michael Tanner,Dumpster,3916433,Jakobi Meyers,NE,WR,144.8,14,4,160,1,144.8
+160,5,Randy Aman,Brutal,16777,Carlos Hyde,JAX,RB,39.8,14,5,161,1,39.8
+161,8,Travis Bryce,Porker,4569173,Rhamondre Stevenson,NE,RB,107.9,14,6,162,1,107.9
+162,9,kelby koch,Brutal,4040655,Darnell Mooney,CHI,WR,179.2,14,7,163,1,179.2
+163,3,Tristan Oswald,Porker,-14014,Rams Coach,LAR,HC,52.0,14,8,164,1,52.0
+164,11,Kelton Koch,Brutal,15349,Cole Beasley,BUF,WR,118.3,14,9,165,1,118.3
+165,2,James Oswald,Dumpster,2576623,DeVante Parker,MIA,WR,83.5,14,10,166,1,83.5
+166,12,Michael Tanner,Dumpster,3051876,Evan Engram,NYG,TE,79.5,14,11,167,1,79.5
+167,5,Randy Aman,Brutal,13983,A.J. Green,ARI,WR,129.8,14,12,168,1,129.8
+168,8,Travis Bryce,Porker,15826,Giovani Bernard,TB,RB,47.6,15,1,169,1,47.6
+169,9,kelby koch,Brutal,3116389,Samaje Perine,CIN,RB,69.7,15,2,170,1,69.7
+170,3,Tristan Oswald,Porker,15835,Zach Ertz,ARI,TE,143.7,15,3,171,1,143.7
+171,5,Randy Aman,Brutal,2570986,Malcolm Brown,MIA,RB,21.0,15,4,172,2,10.5
+172,2,James Oswald,Dumpster,3930086,Dawson Knox,BUF,TE,139.6,15,5,173,1,139.6
+173,12,Michael Tanner,Dumpster,-14008,Lions Coach,DET,HC,9.0,15,6,174,1,9.0
+174,5,Randy Aman,Brutal,-16025,49ers D/ST,SF,D/ST,134.0,15,7,175,1,134.0
+175,8,Travis Bryce,Porker,3122866,Devontae Booker,NYG,RB,124.1,15,8,176,1,124.1
+176,9,kelby koch,Brutal,4040980,Irv Smith Jr.,MIN,TE,0.0,15,9,177,1,0.0
+177,3,Tristan Oswald,Porker,4046676,Tony Jones Jr.,NO,RB,19.6,15,10,178,1,19.6
+178,11,Kelton Koch,Brutal,-16017,Patriots D/ST,NE,D/ST,164.0,15,11,179,1,164.0
+179,2,James Oswald,Dumpster,4241802,Jalen Reagor,PHI,WR,61.6,15,12,180,1,61.6
+180,8,Travis Bryce,Porker,-14025,49ers Coach,SF,HC,40.0,16,1,181,1,40.0
+181,9,kelby koch,Brutal,2979477,Tevin Coleman,NYJ,RB,46.0,16,2,182,1,46.0
+182,3,Tristan Oswald,Porker,-14022,Cardinals Coach,ARI,HC,54.0,16,3,183,1,54.0
+183,11,Kelton Koch,Brutal,4241479,Tua Tagovailoa,MIA,QB,180.92,16,4,184,1,180.92
+184,2,James Oswald,Dumpster,2587819,Tyrell Williams,None,WR,2.4,16,5,185,1,2.4
+185,8,Travis Bryce,Porker,4362630,Terrace Marshall Jr.,CAR,WR,24.3,16,6,186,1,24.3
+186,9,kelby koch,Brutal,-16011,Colts D/ST,IND,D/ST,146.0,16,7,187,1,146.0
+187,3,Tristan Oswald,Porker,5536,Ben Roethlisberger,PIT,QB,218.1,16,8,188,1,218.1
+188,2,James Oswald,Dumpster,3121410,Parris Campbell,IND,WR,27.2,16,9,189,1,27.2
+189,8,Travis Bryce,Porker,4372414,Elijah Moore,NYJ,WR,116.7,16,10,190,1,116.7
+190,9,kelby koch,Brutal,-14028,Commanders Coach,WSH,HC,16.0,16,11,191,1,16.0
+191,8,Travis Bryce,Porker,-16029,Panthers D/ST,CAR,D/ST,115.0,16,12,192,1,115.0
