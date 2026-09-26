@@ -1,7 +1,7 @@
 # Create the managed cluster/database/user first; see docs/digitalocean.md.
 # Fill ESPN_S2, ESPN_SWID and ADMIN_TOKEN in App Platform before deploying.
 name: prffs
-region: nyc
+region: sfo
 
 alerts:
   - rule: DEPLOYMENT_FAILED

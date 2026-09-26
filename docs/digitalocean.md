@@ -12,7 +12,7 @@ Use **Databases → Create Database** with these starting settings:
 | --- | --- |
 | Engine | PostgreSQL 16 |
 | Plan | Basic, 1 GiB RAM, single node |
-| Region | NYC3 / New York; app spec uses `region: nyc` |
+| Region | Existing cluster: SFO2; app spec uses `region: sfo` (SFO3) |
 | Cluster name | `prffs-postgres` |
 | Database | Create `prffs` in **Users & Databases** |
 | Database user | Create `prffs_app` in **Users & Databases** |
