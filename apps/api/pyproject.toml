@@ -1,0 +1,30 @@
+[project]
+name = "prffs-api"
+version = "0.1.0"
+description = "Pork Rub Fantasy Football backend API"
+requires-python = ">=3.12"
+dependencies = [
+  "apscheduler>=3.10.4",
+  "espn-api>=0.45.1",
+  "fastapi>=0.115.0",
+  "httpx>=0.27.0",
+  "psycopg[binary]>=3.2.0",
+  "pydantic-settings>=2.4.0",
+  "python-dotenv>=1.0.1",
+  "sqlalchemy>=2.0.32",
+  "uvicorn[standard]>=0.30.6",
+]
+
+[project.scripts]
+prffs-import = "prffs_api.import_local:main"
+prffs-fetch-season = "prffs_api.fetch_seasons:main"
+prffs-live-worker = "prffs_api.live_worker:main"
+prffs-init-db = "prffs_api.database:main"
+prffs-migrate-db = "prffs_api.migrate_db:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prffs_api"]

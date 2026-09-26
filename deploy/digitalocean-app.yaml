@@ -1,0 +1,124 @@
+# Create the managed cluster/database/user first; see docs/digitalocean.md.
+# Fill ESPN_S2, ESPN_SWID and ADMIN_TOKEN in App Platform before deploying.
+name: prffs
+region: nyc
+
+alerts:
+  - rule: DEPLOYMENT_FAILED
+
+databases:
+  - name: prffs-db
+    engine: PG
+    version: "16"
+    production: true
+    cluster_name: prffs-postgres
+    db_name: prffs
+    db_user: prffs_app
+
+envs:
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${prffs-db.DATABASE_URL}
+  - key: APP_ENV
+    scope: RUN_TIME
+    value: production
+  - key: PGSSLMODE
+    scope: RUN_TIME
+    value: require
+  - key: INITIALIZE_DATABASE_ON_STARTUP
+    scope: RUN_TIME
+    value: "false"
+  - key: LEAGUE_ID
+    scope: RUN_TIME
+    value: "917761"
+  - key: ESPN_S2
+    scope: RUN_TIME
+    type: SECRET
+  - key: ESPN_SWID
+    scope: RUN_TIME
+    type: SECRET
+
+ingress:
+  rules:
+    - match:
+        path:
+          prefix: /api
+      component:
+        name: prffs-api
+        preserve_path_prefix: true
+    - match:
+        path:
+          prefix: /media
+      component:
+        name: prffs-api
+        preserve_path_prefix: true
+    - match:
+        path:
+          prefix: /health
+      component:
+        name: prffs-api
+        preserve_path_prefix: true
+    - match:
+        path:
+          prefix: /
+      component:
+        name: prffs-web
+
+services:
+  - name: prffs-api
+    source_dir: /
+    dockerfile_path: apps/api/Dockerfile
+    github:
+      repo: iWHOswald/PRFFS
+      branch: master
+      deploy_on_push: true
+    run_command: uvicorn prffs_api.main:app --host 0.0.0.0 --port 8080
+    http_port: 8080
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 10
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-1gb
+    envs:
+      - key: ADMIN_TOKEN
+        scope: RUN_TIME
+        type: SECRET
+
+jobs:
+  - name: prffs-schema
+    kind: PRE_DEPLOY
+    source_dir: /
+    dockerfile_path: apps/api/Dockerfile
+    github:
+      repo: iWHOswald/PRFFS
+      branch: master
+      deploy_on_push: true
+    run_command: prffs-init-db
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-0.5gb
+
+# Optional: remove this workers block to skip continuous score snapshots.
+workers:
+  - name: prffs-live-worker
+    source_dir: /
+    dockerfile_path: apps/api/Dockerfile
+    github:
+      repo: iWHOswald/PRFFS
+      branch: master
+      deploy_on_push: true
+    run_command: prffs-live-worker
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-1gb
+
+static_sites:
+  - name: prffs-web
+    source_dir: apps/web
+    environment_slug: node-js
+    github:
+      repo: iWHOswald/PRFFS
+      branch: master
+      deploy_on_push: true
+    build_command: npm ci && npm run build
+    output_dir: dist
+    index_document: index.html
+    catchall_document: index.html
