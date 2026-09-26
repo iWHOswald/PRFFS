@@ -100,7 +100,9 @@ The app was initially untracked locally: DigitalOcean cannot build those files
 until they have been pushed. Review the staged files; `.env`, `var/`, databases,
 dependencies, and private deployment specs are excluded by `.gitignore`.
 
-Ensure DigitalOcean's GitHub integration has access to this repository.
+The spec uses the public Git clone URL, so DigitalOcean's GitHub integration
+does not need repository access. Deployments are triggered manually. Keep the
+repository public while using this source configuration.
 
 The required secrets are:
 
@@ -194,7 +196,13 @@ controls private admin context, manual draft edits, and on-demand draft imports.
 Rotate it by updating the API's `ADMIN_TOKEN` secret and redeploying.
 
 After launch, remove the temporary database IP rule and retain the local backup.
-Future GitHub pushes rebuild the app. The schema job creates missing tables and
+After pushing future changes to `master`, deploy the latest code with:
+
+```bash
+doctl apps create-deployment APP_ID --wait
+```
+
+The schema job creates missing tables and
 applies the existing additive column changes under a database lock; larger future
 schema changes need explicit migrations, not a repeat of the SQLite transfer.
 
