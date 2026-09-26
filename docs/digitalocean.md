@@ -4,6 +4,28 @@ The deployment consists of a React static site, a FastAPI service, a schema
 setup job, an optional ESPN score worker, and a managed PostgreSQL database.
 The app spec is in [deploy/digitalocean-app.yaml](../deploy/digitalocean-app.yaml).
 
+## Current deployment
+
+- Site: <https://prffs-jgq9t.ondigitalocean.app>
+- App: `prffs`, ID `1a93ef88-ae70-4d1b-a0b7-4a9ef7e51ebb`
+- [DigitalOcean app dashboard](https://cloud.digitalocean.com/apps/1a93ef88-ae70-4d1b-a0b7-4a9ef7e51ebb)
+- PostgreSQL: `prffs-postgres` in SFO2, database `prffs`, user `prffs_app`.
+- Migration completed on 2026-09-26: all 17 tables and 28,412 rows verified
+  against the local SQLite snapshot. Do not repeat the initial migration.
+- Admin password: local, Git-ignored `var/deploy/admin-token.txt`. Select
+  **Admin Studio** in the site's season/view menu to sign in. Save this password
+  in your password manager; reloading or signing out clears the browser session.
+
+Deploy future code changes after pushing to `master`:
+
+```bash
+doctl apps create-deployment 1a93ef88-ae70-4d1b-a0b7-4a9ef7e51ebb --wait
+```
+
+GitHub pushes do not deploy automatically. The API, schema job, and ESPN worker
+share a Docker image; the frontend is a static site. The following sections
+document the original setup and recovery process.
+
 ## 1. Create the database in DigitalOcean
 
 Use **Databases → Create Database** with these starting settings:
